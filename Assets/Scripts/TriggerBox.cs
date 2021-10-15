@@ -37,6 +37,9 @@ public class TriggerBox : MonoBehaviour
     [SerializeField] MusicManager _musicManager;
     [SerializeField] GameManager _gameManager;
 
+    //stop audio once
+    int x = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,11 +54,15 @@ public class TriggerBox : MonoBehaviour
 
     void StopAllAudio()
     {
-        allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
-        foreach (AudioSource audioS in allAudioSources)
+        if (x == 0)
         {
-            audioS.Stop();
+            allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+            foreach (AudioSource audioS in allAudioSources)
+            {
+                audioS.Stop();
+            }
         }
+        x = 1;
     }
 
     private void OnTriggerStay(Collider other)
@@ -85,20 +92,23 @@ public class TriggerBox : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (TextTrigger == true)
+        if (other.tag == "Player")
         {
-            _textToDisplay.SetActive(false);
-        }
-        if (MusicTrigger == true)
-        {
-            //_MusicToTrigger.Play();
-            //_musicManager.MusicPlaying = SpecifyMusicType;
-            _musicManager.DetectAudioPlaying(SpecifyMusicType);
-            _musicManager.PlayMusic();
-        }
-        if (ObjectTrigger == true)
-        {
-            _objectToTrigger.SetActive(true);
+            if (TextTrigger == true)
+            {
+                _textToDisplay.SetActive(false);
+            }
+            if (MusicTrigger == true)
+            {
+                //_MusicToTrigger.Play();
+                //_musicManager.MusicPlaying = SpecifyMusicType;
+                _musicManager.DetectAudioPlaying(SpecifyMusicType);
+                _musicManager.PlayMusic();
+            }
+            if (ObjectTrigger == true)
+            {
+                _objectToTrigger.SetActive(true);
+            }
         }
     }
 

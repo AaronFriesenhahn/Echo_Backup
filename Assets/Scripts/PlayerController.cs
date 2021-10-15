@@ -91,7 +91,10 @@ public class PlayerController : MonoBehaviour
     //for animation variables
     int rightlegrunning = 0;
     int leftlegrunning = 0;
-    
+
+    //for hovering
+    float targetTime = 2.75f;
+
 
     bool deathSoundPlayed = false;
 
@@ -325,6 +328,15 @@ public class PlayerController : MonoBehaviour
             DetectHealth();
             DetectGround();
         }
+        targetTime -= Time.deltaTime;
+        if (targetTime <= 0.0f)
+        {
+            _rigidbody.drag = 0;
+        }
+        if (targetTime == 0)
+        {
+            _rigidbody.drag = 0;
+        }
     }
 
     void PlayAnimation()
@@ -469,8 +481,13 @@ public class PlayerController : MonoBehaviour
                     AudioHelper.PlayClip2D(_electricHoverSound, 1f);
                     _rigidbody.drag = 20;
                     x = 1;
-                    StartCoroutine(HoverJumpDelay());
+                    targetTime = 2.75f;
+                    //StartCoroutine(HoverJumpDelay());                    
                 }
+            }
+            else if (_motor._isGrounded == true)
+            {
+                _rigidbody.drag = 0;
             }
         }
     }

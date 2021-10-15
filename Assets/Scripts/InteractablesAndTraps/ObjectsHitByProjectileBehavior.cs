@@ -156,14 +156,14 @@ public class ObjectsHitByProjectileBehavior : MonoBehaviour
         {
             reachDestination1 = true;
             reachDestination2 = false;
-            Debug.Log("reached destination 1.");
+            //Debug.Log("reached destination 1.");
         }
         //if reached Destination1, swap to StartingPosition
         else if (Vector3.Distance(_MovingObject.transform.position, _Destination1.position) < 1f)
         {
             reachDestination2 = true;
             reachDestination1 = false;
-            Debug.Log("reached destination 2.");
+            //Debug.Log("reached destination 2.");
         }
     }
     //Moves Platform Between points
@@ -188,14 +188,14 @@ public class ObjectsHitByProjectileBehavior : MonoBehaviour
         {
             reachDestination1 = true;
             reachDestination2 = false;
-            Debug.Log("reached destination 1.");
+            //Debug.Log("reached destination 1.");
         }
         //if reached Destination1, swap to StartingPosition
         else if (Vector3.Distance(_MovingObject.transform.position, _Destination1.position) < 1f)
         {
             reachDestination2 = true;
             reachDestination1 = false;
-            Debug.Log("reached destination 2.");
+            //Debug.Log("reached destination 2.");
         }
     }
 

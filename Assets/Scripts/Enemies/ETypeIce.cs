@@ -20,7 +20,7 @@ public class ETypeIce : EnemyAI
     {
         //fire a projectile upwards
         yield return new WaitForSeconds(.05f);
-        Vector3 offset = new Vector3(0, .5f, 0);
+        Vector3 offset = new Vector3(0, .25f, 0);
         GameObject projectile = Instantiate(_Projectile, EmitLocation.position + offset, EmitLocation.rotation);
         projectile.GetComponent<Rigidbody>().AddForce(transform.right * -500);
         //fire a projectile downwards

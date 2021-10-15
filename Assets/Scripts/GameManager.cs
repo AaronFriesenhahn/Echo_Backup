@@ -142,6 +142,7 @@ public class GameManager : MonoBehaviour
         GameIsPaused = true;
         //timeScale slows down or speeds up game, in this case, it stops the game
         Time.timeScale = 0f;
+        Cursor.lockState = CursorLockMode.None;
         Cursor.lockState = CursorLockMode.Confined;
     }
 
@@ -181,7 +182,7 @@ public class GameManager : MonoBehaviour
     public void ResetGame()
     {
         Debug.Log("Quitting to Main Title.");
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     }
 
     public void LoadNextLevel()

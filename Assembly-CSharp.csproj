@@ -67,8 +67,10 @@
     <Compile Include="Assets\Scripts\CameraBehavior.cs" />
     <Compile Include="Assets\Scripts\Common\AudioHelper.cs" />
     <Compile Include="Assets\Scripts\Common\QuitGameReloadLevel.cs" />
+    <Compile Include="Assets\Scripts\Credits_Behavior.cs" />
     <Compile Include="Assets\Scripts\Enemies\EnemyAI.cs" />
     <Compile Include="Assets\Scripts\Enemies\EnemyBehavior.cs" />
+    <Compile Include="Assets\Scripts\Enemies\ETypeBoss.cs" />
     <Compile Include="Assets\Scripts\Enemies\ETypeElectric.cs" />
     <Compile Include="Assets\Scripts\Enemies\ETypeFire.cs" />
     <Compile Include="Assets\Scripts\Enemies\ETypeGround.cs" />
@@ -98,6 +100,7 @@
     <Compile Include="Assets\Scripts\PowerUps\IcePart.cs" />
     <Compile Include="Assets\Scripts\PowerUps\NormalPart.cs" />
     <Compile Include="Assets\Scripts\TriggerBox.cs" />
+    <Compile Include="Assets\Scripts\TriggerBox_CloseGate.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />

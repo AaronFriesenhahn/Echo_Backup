@@ -20,13 +20,14 @@ public class ETypeFire : EnemyAI
     IEnumerator FireProjectileDelay()
     {
         yield return new WaitForSeconds(.05f);
-        GameObject projectile = Instantiate(_Projectile, EmitLocation.position, EmitLocation.rotation);
+        Vector3 offset = new Vector3(0, .25f, 0);
+        GameObject projectile = Instantiate(_Projectile, EmitLocation.position + offset, EmitLocation.rotation);
         projectile.GetComponent<Rigidbody>().AddForce(transform.right * -500);
         yield return new WaitForSeconds(.05f);
         projectile = Instantiate(_Projectile, EmitLocation.position, EmitLocation.rotation);
         projectile.GetComponent<Rigidbody>().AddForce(transform.right * -500);
         yield return new WaitForSeconds(.05f);
-        projectile = Instantiate(_Projectile, EmitLocation.position, EmitLocation.rotation);
+        projectile = Instantiate(_Projectile, EmitLocation.position - offset, EmitLocation.rotation);
         projectile.GetComponent<Rigidbody>().AddForce(transform.right * -500);
     }
 

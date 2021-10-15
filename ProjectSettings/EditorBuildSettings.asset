@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Sandbox.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level2_IceAndElectric.unity
     guid: 4d870cf93aa087c49b89e18795f4d964
+  - enabled: 1
+    path: Assets/Scenes/Level3_BossFight.unity
+    guid: 8d36b9c80c12c2b47b22d75de216e8dd
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: e0c4aec2c8b551e4fb8ae0b3343cf632
   m_configObjects: {}

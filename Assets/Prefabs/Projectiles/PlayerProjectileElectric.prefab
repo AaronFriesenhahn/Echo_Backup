@@ -124,6 +124,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thrust: 500
   rb: {fileID: 0}
-  timeLeft: 2
-  weaponDamage: 25
+  timeLeft: 1
+  weaponDamage: 20
   impactParticles: {fileID: 0}

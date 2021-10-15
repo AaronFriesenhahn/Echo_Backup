@@ -10,7 +10,7 @@ public class QuitGameReloadLevel : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Debug.Log("Escape key was pressed");
-            //Application.Quit();
+            Application.Quit();
         }
         if (Input.GetKeyDown(KeyCode.R))
         {

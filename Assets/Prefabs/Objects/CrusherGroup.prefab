@@ -347,4 +347,5 @@ MonoBehaviour:
   _enemyAi: {fileID: 0}
   _frozenEffect: {fileID: 3669315771837102461, guid: 344c1cd830570174db899d8663ab6580,
     type: 3}
-  _PoweredEffect: {fileID: 0}
+  _PoweredEffect: {fileID: 3669315771837102461, guid: 59a4c92ce7e176d4997c12b59fbbfbf3,
+    type: 3}

@@ -6,6 +6,7 @@ public class EnemyAI : MonoBehaviour
 {
     [SerializeField] public GameObject _Projectile;
     [SerializeField] public Transform EmitLocation;
+    [SerializeField] public float FireCoolDownTime = 2f;
 
     public bool allowfire = true;
 
@@ -40,7 +41,7 @@ public class EnemyAI : MonoBehaviour
     protected virtual IEnumerator FireCooldown()
     {
         Debug.Log("Cooldown activated.");
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(FireCoolDownTime);
         allowfire = true;
     }
 }

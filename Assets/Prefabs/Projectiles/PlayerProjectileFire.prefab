@@ -125,5 +125,5 @@ MonoBehaviour:
   thrust: 500
   rb: {fileID: 0}
   timeLeft: 0.25
-  weaponDamage: 10
+  weaponDamage: 5
   impactParticles: {fileID: 0}
