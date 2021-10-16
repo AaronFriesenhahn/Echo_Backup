@@ -11,9 +11,6 @@ public class EnemyRespawner : MonoBehaviour
     [SerializeField] ETypeIce _enemyTypeIce;
     [SerializeField] ETypeGround _enemyTypeGround;
 
-    bool Respawned = false;
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -23,19 +20,16 @@ public class EnemyRespawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_EnemyToSpawn.activeSelf == false && Respawned == false)
-        {
-            Debug.Log("activating "+ _EnemyToSpawn);
-            _EnemyToSpawn.GetComponent<EnemyAI>().allowfire = true;
-            StartCoroutine(RespawnDelay());
-        }
+
     }
 
-    IEnumerator RespawnDelay()
+    public IEnumerator RespawnDelay()
     {
+        _EnemyToSpawn.SetActive(false);
         yield return new WaitForSeconds(10f);
-        _EnemyToSpawn.GetComponent<Health>()._currentHealth = _EnemyToSpawn.GetComponent<Health>()._maxHealth;
+        
         _EnemyToSpawn.SetActive(true);
-        Respawned = true;
+        _EnemyToSpawn.GetComponent<Health>()._currentHealth = _EnemyToSpawn.GetComponent<Health>()._maxHealth;
+        _EnemyToSpawn.GetComponent<EnemyAI>().allowfire = true;
     }
 }

@@ -11,6 +11,7 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField] AudioClip _impactSound;
     public Transform _PlayerTransform;
     public bool _isFacingLeft = true;
+    public EnemyRespawner _enemyRespawner;
 
     public AudioClip _deathSound;
 
@@ -85,22 +86,16 @@ public class EnemyBehavior : MonoBehaviour
 
     protected virtual void DeathFeedback()
     {
-        if (_impactParticles != null)
-        {
-            _impactParticles = Instantiate(_impactParticles,
+        ParticleSystem _particles = Instantiate(_impactParticles,
                 transform.position, Quaternion.identity);
-        }
-        if (_deathSound != null)
-        {
-            AudioHelper.PlayClip2D(_deathSound, 1f);
-        }
+        AudioHelper.PlayClip2D(_deathSound, 1f);
 
         //upon death spawn a powerup based on enemy type
         GameObject powerup = Instantiate(PowerupType, transform.position, transform.rotation);
 
         //TODO Respawn functionality 
         Debug.Log("Calling Respawn");
-        StartCoroutine(RespawnEnemy());
+        _enemyRespawner.StartCoroutine(_enemyRespawner.RespawnDelay());
     }
 
     //testing extra damage from stronger type. It works!!! Add element type between Projectile and (Clone) Perhaps add to EnemyType Scripts
@@ -112,11 +107,5 @@ public class EnemyBehavior : MonoBehaviour
             _healthsystem.TakeDamage(5);
         }
 
-    }
-
-    IEnumerator RespawnEnemy()
-    {
-        gameObject.SetActive(false);
-        yield return new WaitForSeconds(1f);
     }
 }

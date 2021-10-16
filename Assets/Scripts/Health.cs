@@ -39,7 +39,7 @@ public class Health : MonoBehaviour, IDamageable
         Debug.Log("Damage taken: " + damage);
         _currentHealth -= damage;
         Damaged.Invoke(damage);
-        _impactParticles = Instantiate(_impactParticles, transform.position, Quaternion.identity);
+        ParticleSystem _particles = Instantiate(_impactParticles, transform.position, Quaternion.identity);
         if (_currentHealth <= 0)
         {
             _currentHealth = 0;
