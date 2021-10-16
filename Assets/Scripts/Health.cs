@@ -64,8 +64,8 @@ public class Health : MonoBehaviour, IDamageable
         var objectMesh = gameObject.GetComponent<MeshRenderer>();
         var objectCollider = gameObject.GetComponent<Collider>();
 
-        objectMesh.enabled = false;
-        objectCollider.enabled = false;
+        //objectMesh.enabled = false;
+        //objectCollider.enabled = false;
         //gameObject.SetActive(false);
     }
 

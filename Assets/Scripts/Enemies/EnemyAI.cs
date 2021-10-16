@@ -9,6 +9,8 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] public float FireCoolDownTime = 2f;
 
     public bool allowfire = true;
+    Health _healthsystem;
+    public bool _enemyDiedResetEnemy = false;
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +21,7 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void FixedUpdate()
@@ -35,6 +37,11 @@ public class EnemyAI : MonoBehaviour
             projectile.GetComponent<Rigidbody>().AddForce(transform.right * -500);
             allowfire = false;
             StartCoroutine(FireCooldown());
+        }
+        else if (_enemyDiedResetEnemy == true)
+        {
+            allowfire = true;
+            _enemyDiedResetEnemy = false;
         }
     }
 

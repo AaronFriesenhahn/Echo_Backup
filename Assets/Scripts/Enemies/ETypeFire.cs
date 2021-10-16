@@ -9,9 +9,10 @@ public class ETypeFire : EnemyAI
     {
         if (allowfire == true)
         {
+            allowfire = false;
             GameObject projectile = Instantiate(_Projectile, EmitLocation.position, EmitLocation.rotation);
             projectile.GetComponent<Rigidbody>().AddForce(transform.right * -500);
-            allowfire = false;
+            
             StartCoroutine(FireCooldown());
             StartCoroutine(FireProjectileDelay());
         }

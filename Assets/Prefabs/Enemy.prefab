@@ -948,6 +948,9 @@ MonoBehaviour:
     type: 3}
   _impactSound: {fileID: 0}
   _PlayerTransform: {fileID: 0}
+  _isFacingLeft: 1
+  _PlayerWithinRangeDetector: {fileID: 0}
+  PlayerWithinRange: 0
   _deathSound: {fileID: 8300000, guid: 962306f402129b3479910057d009d619, type: 3}
   PowerupType: {fileID: 5222183206985945317, guid: 125470f81a4fbff47994f57fc2e01396,
     type: 3}
@@ -985,7 +988,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Projectile: {fileID: 0}
   EmitLocation: {fileID: 5325187184697378132}
+  FireCoolDownTime: 2
   allowfire: 1
+  _enemyDiedResetEnemy: 0
 --- !u!1 &5325187184697378133
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ public class EnemyBehavior : MonoBehaviour
     public ParticleSystem _impactParticles;
     [SerializeField] AudioClip _impactSound;
     public Transform _PlayerTransform;
+    public bool _isFacingLeft = true;
 
     public AudioClip _deathSound;
 
@@ -54,6 +55,7 @@ public class EnemyBehavior : MonoBehaviour
         {
             DeathFeedback();
         }
+        RotateToFacePlayer();
     }
 
     protected virtual void Move()
@@ -63,6 +65,22 @@ public class EnemyBehavior : MonoBehaviour
         //// Move our position a step closer to the target.
         //float step = speed * Time.deltaTime; // calculate distance to move
         //transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
+    }
+    //rotates enemy to face player
+    protected virtual void RotateToFacePlayer()
+    {
+        if (_PlayerTransform.transform.position.x < transform.position.x && _isFacingLeft == false)
+        {
+            //Face Left
+            transform.Rotate(0, 180, 0);
+            _isFacingLeft = true;
+        }
+        else if (_PlayerTransform.transform.position.x > transform.position.x && _isFacingLeft == true)
+        {
+            //Face Right
+            transform.Rotate(0, -180, 0);
+            _isFacingLeft = false;
+        }
     }
 
     protected virtual void DeathFeedback()
@@ -80,7 +98,9 @@ public class EnemyBehavior : MonoBehaviour
         //upon death spawn a powerup based on enemy type
         GameObject powerup = Instantiate(PowerupType, transform.position, transform.rotation);
 
-        gameObject.SetActive(false);
+        //TODO Respawn functionality 
+        Debug.Log("Calling Respawn");
+        StartCoroutine(RespawnEnemy());
     }
 
     //testing extra damage from stronger type. It works!!! Add element type between Projectile and (Clone) Perhaps add to EnemyType Scripts
@@ -92,5 +112,11 @@ public class EnemyBehavior : MonoBehaviour
             _healthsystem.TakeDamage(5);
         }
 
+    }
+
+    IEnumerator RespawnEnemy()
+    {
+        gameObject.SetActive(false);
+        yield return new WaitForSeconds(1f);
     }
 }
