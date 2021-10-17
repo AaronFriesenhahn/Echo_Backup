@@ -160,6 +160,7 @@ MonoBehaviour:
   _projectile: {fileID: 5436300861065661510, guid: bf2d3939d39e1804eb5619205b2a0ff2,
     type: 3}
   EmitLocation: {fileID: 822134254}
+  _hitByProjectile: {fileID: 0}
 --- !u!65 &24793165
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4732,6 +4733,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2363419538031713809, guid: efd25ecdddb76bc419ca08e27c13f570,
         type: 3}
+    - target: {fileID: 7806607554899976244, guid: dfc91a0751b93e047b187d5a13e14dda,
+        type: 3}
+      propertyPath: _hitByProjectile
+      value: 
+      objectReference: {fileID: 867390060}
+    - target: {fileID: 7806607554899976247, guid: dfc91a0751b93e047b187d5a13e14dda,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 23faa8549620772458f02a811456361f, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfc91a0751b93e047b187d5a13e14dda, type: 3}
 --- !u!1 &218546335
@@ -4774,6 +4785,7 @@ MonoBehaviour:
   _projectile: {fileID: 5436300861065661510, guid: bf2d3939d39e1804eb5619205b2a0ff2,
     type: 3}
   EmitLocation: {fileID: 1445158403}
+  _hitByProjectile: {fileID: 0}
 --- !u!65 &218546337
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8605,6 +8617,7 @@ MonoBehaviour:
   EmitLocation: {fileID: 287109881}
   FireCoolDownTime: 2
   allowfire: 1
+  _enemyDiedResetEnemy: 0
 --- !u!4 &439099231 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5325187184675867505, guid: 2a76340b916796e47a439f9d6c407406,
@@ -10844,6 +10857,7 @@ MonoBehaviour:
   EmitLocation: {fileID: 717186084}
   FireCoolDownTime: 2
   allowfire: 1
+  _enemyDiedResetEnemy: 0
 --- !u!1 &574554528
 GameObject:
   m_ObjectHideFlags: 0
@@ -15080,6 +15094,7 @@ MonoBehaviour:
   _projectile: {fileID: 5436300861065661510, guid: bf2d3939d39e1804eb5619205b2a0ff2,
     type: 3}
   EmitLocation: {fileID: 1464553731}
+  _hitByProjectile: {fileID: 0}
 --- !u!65 &715849828
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16287,6 +16302,7 @@ MonoBehaviour:
   EmitLocation: {fileID: 1681027842}
   FireCoolDownTime: 2
   allowfire: 1
+  _enemyDiedResetEnemy: 0
 --- !u!4 &740297471 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5325187184675867505, guid: 2a76340b916796e47a439f9d6c407406,
@@ -17769,6 +17785,40 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &867390059 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7806607554899976249, guid: dfc91a0751b93e047b187d5a13e14dda,
+    type: 3}
+  m_PrefabInstance: {fileID: 215544268}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &867390060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867390059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3abcfe19ee1152444b9e9007a51ff3ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HitByIce: 0
+  HitByElectric: 0
+  ObjectTypeEnemy: 0
+  ObjectTypeCrusher: 0
+  ObjectTypeMovingPlatform: 0
+  ObjectTypeObjectToPower: 0
+  ObjectPowered: 1
+  ObjectSpeed: 2
+  CrusherSpeed: 2
+  _MovingObject: {fileID: 0}
+  _StartingPosition: {fileID: 0}
+  _Destination1: {fileID: 0}
+  _enemyAi: {fileID: 0}
+  _frozenEffect: {fileID: 3669315771837102461, guid: 344c1cd830570174db899d8663ab6580,
+    type: 3}
+  _PoweredEffect: {fileID: 0}
 --- !u!1 &871646726
 GameObject:
   m_ObjectHideFlags: 0
@@ -18136,6 +18186,7 @@ MonoBehaviour:
   _projectile: {fileID: 5436300861065661510, guid: bf2d3939d39e1804eb5619205b2a0ff2,
     type: 3}
   EmitLocation: {fileID: 1646262522}
+  _hitByProjectile: {fileID: 0}
 --- !u!65 &915932138
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19445,6 +19496,11 @@ PrefabInstance:
       propertyPath: CrusherSpeed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 5476273683144993224, guid: 87e4290e84942f14c847728f7b76c205,
+        type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 407640237}
     - target: {fileID: 3657482801166147097, guid: 87e4290e84942f14c847728f7b76c205,
         type: 3}
       propertyPath: m_Mesh
@@ -19470,11 +19526,6 @@ PrefabInstance:
       propertyPath: CrusherSpeed
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 5476273683144993224, guid: 87e4290e84942f14c847728f7b76c205,
-        type: 3}
-      propertyPath: Player
-      value: 
-      objectReference: {fileID: 407640237}
     - target: {fileID: 3657482801763674059, guid: 87e4290e84942f14c847728f7b76c205,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -20978,6 +21029,7 @@ MonoBehaviour:
   EmitLocation: {fileID: 1029427257}
   FireCoolDownTime: 2
   allowfire: 1
+  _enemyDiedResetEnemy: 0
 --- !u!1001 &1031286321
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21080,6 +21132,21 @@ PrefabInstance:
       propertyPath: CrusherSpeed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 5476273683144993224, guid: 87e4290e84942f14c847728f7b76c205,
+        type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 407640237}
+    - target: {fileID: 5476273683144993231, guid: 87e4290e84942f14c847728f7b76c205,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.75632477
+      objectReference: {fileID: 0}
+    - target: {fileID: 5476273683144993231, guid: 87e4290e84942f14c847728f7b76c205,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3657482801166147097, guid: 87e4290e84942f14c847728f7b76c205,
         type: 3}
       propertyPath: m_Mesh
@@ -21104,21 +21171,6 @@ PrefabInstance:
         type: 3}
       propertyPath: CrusherSpeed
       value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5476273683144993224, guid: 87e4290e84942f14c847728f7b76c205,
-        type: 3}
-      propertyPath: Player
-      value: 
-      objectReference: {fileID: 407640237}
-    - target: {fileID: 5476273683144993231, guid: 87e4290e84942f14c847728f7b76c205,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.75632477
-      objectReference: {fileID: 0}
-    - target: {fileID: 5476273683144993231, guid: 87e4290e84942f14c847728f7b76c205,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3657482801763674059, guid: 87e4290e84942f14c847728f7b76c205,
         type: 3}
@@ -26799,6 +26851,40 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1224393530}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1227459076 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7806607554899976249, guid: dfc91a0751b93e047b187d5a13e14dda,
+    type: 3}
+  m_PrefabInstance: {fileID: 2051914789}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1227459077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1227459076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3abcfe19ee1152444b9e9007a51ff3ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HitByIce: 0
+  HitByElectric: 0
+  ObjectTypeEnemy: 0
+  ObjectTypeCrusher: 0
+  ObjectTypeMovingPlatform: 0
+  ObjectTypeObjectToPower: 0
+  ObjectPowered: 1
+  ObjectSpeed: 2
+  CrusherSpeed: 2
+  _MovingObject: {fileID: 0}
+  _StartingPosition: {fileID: 0}
+  _Destination1: {fileID: 0}
+  _enemyAi: {fileID: 0}
+  _frozenEffect: {fileID: 3669315771837102461, guid: 344c1cd830570174db899d8663ab6580,
+    type: 3}
+  _PoweredEffect: {fileID: 0}
 --- !u!1 &1233761020
 GameObject:
   m_ObjectHideFlags: 0
@@ -28239,6 +28325,26 @@ PrefabInstance:
       propertyPath: CrusherSpeed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 5476273683144993224, guid: 87e4290e84942f14c847728f7b76c205,
+        type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 407640237}
+    - target: {fileID: 5476273683144993231, guid: 87e4290e84942f14c847728f7b76c205,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.75632477
+      objectReference: {fileID: 0}
+    - target: {fileID: 5476273683144993231, guid: 87e4290e84942f14c847728f7b76c205,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5476273683144993231, guid: 87e4290e84942f14c847728f7b76c205,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.391
+      objectReference: {fileID: 0}
     - target: {fileID: 3657482801166147097, guid: 87e4290e84942f14c847728f7b76c205,
         type: 3}
       propertyPath: m_Mesh
@@ -28263,26 +28369,6 @@ PrefabInstance:
         type: 3}
       propertyPath: CrusherSpeed
       value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5476273683144993224, guid: 87e4290e84942f14c847728f7b76c205,
-        type: 3}
-      propertyPath: Player
-      value: 
-      objectReference: {fileID: 407640237}
-    - target: {fileID: 5476273683144993231, guid: 87e4290e84942f14c847728f7b76c205,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.75632477
-      objectReference: {fileID: 0}
-    - target: {fileID: 5476273683144993231, guid: 87e4290e84942f14c847728f7b76c205,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5476273683144993231, guid: 87e4290e84942f14c847728f7b76c205,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.391
       objectReference: {fileID: 0}
     - target: {fileID: 3657482801763674059, guid: 87e4290e84942f14c847728f7b76c205,
         type: 3}
@@ -31456,6 +31542,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2363419538031713809, guid: efd25ecdddb76bc419ca08e27c13f570,
         type: 3}
+    - target: {fileID: 7806607554899976247, guid: dfc91a0751b93e047b187d5a13e14dda,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: bbabae25c17d1484fafcb743599216a0, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfc91a0751b93e047b187d5a13e14dda, type: 3}
 --- !u!1 &1415346427
@@ -35571,6 +35662,7 @@ MonoBehaviour:
   _projectile: {fileID: 5436300861065661510, guid: bf2d3939d39e1804eb5619205b2a0ff2,
     type: 3}
   EmitLocation: {fileID: 1330842356}
+  _hitByProjectile: {fileID: 0}
 --- !u!1 &1652472360 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5325187184675867515, guid: 2a76340b916796e47a439f9d6c407406,
@@ -35771,6 +35863,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2363419538031713809, guid: efd25ecdddb76bc419ca08e27c13f570,
         type: 3}
+    - target: {fileID: 7806607554899976247, guid: dfc91a0751b93e047b187d5a13e14dda,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: bbabae25c17d1484fafcb743599216a0, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfc91a0751b93e047b187d5a13e14dda, type: 3}
 --- !u!4 &1681027842 stripped
@@ -36462,6 +36559,7 @@ MonoBehaviour:
   _projectile: {fileID: 5436300861065661510, guid: bf2d3939d39e1804eb5619205b2a0ff2,
     type: 3}
   EmitLocation: {fileID: 368472505}
+  _hitByProjectile: {fileID: 0}
 --- !u!65 &1724033213
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -36985,6 +37083,7 @@ MonoBehaviour:
   _projectile: {fileID: 5436300861065661510, guid: bf2d3939d39e1804eb5619205b2a0ff2,
     type: 3}
   EmitLocation: {fileID: 1330834185}
+  _hitByProjectile: {fileID: 0}
 --- !u!65 &1751702755
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -42007,6 +42106,11 @@ PrefabInstance:
       propertyPath: CrusherSpeed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 5476273683144993224, guid: 87e4290e84942f14c847728f7b76c205,
+        type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 407640237}
     - target: {fileID: 3657482801166147097, guid: 87e4290e84942f14c847728f7b76c205,
         type: 3}
       propertyPath: m_Mesh
@@ -42032,11 +42136,6 @@ PrefabInstance:
       propertyPath: CrusherSpeed
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 5476273683144993224, guid: 87e4290e84942f14c847728f7b76c205,
-        type: 3}
-      propertyPath: Player
-      value: 
-      objectReference: {fileID: 407640237}
     - target: {fileID: 3657482801763674059, guid: 87e4290e84942f14c847728f7b76c205,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -44736,6 +44835,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2363419538031713809, guid: efd25ecdddb76bc419ca08e27c13f570,
         type: 3}
+    - target: {fileID: 7806607554899976244, guid: dfc91a0751b93e047b187d5a13e14dda,
+        type: 3}
+      propertyPath: _hitByProjectile
+      value: 
+      objectReference: {fileID: 1227459077}
+    - target: {fileID: 7806607554899976247, guid: dfc91a0751b93e047b187d5a13e14dda,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 23faa8549620772458f02a811456361f, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfc91a0751b93e047b187d5a13e14dda, type: 3}
 --- !u!1 &2054791224
@@ -44778,6 +44887,7 @@ MonoBehaviour:
   _projectile: {fileID: 5436300861065661510, guid: bf2d3939d39e1804eb5619205b2a0ff2,
     type: 3}
   EmitLocation: {fileID: 1931853757}
+  _hitByProjectile: {fileID: 0}
 --- !u!65 &2054791226
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -45557,6 +45667,21 @@ PrefabInstance:
       propertyPath: CrusherSpeed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 5476273683144993224, guid: 87e4290e84942f14c847728f7b76c205,
+        type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 407640237}
+    - target: {fileID: 5476273683144993231, guid: 87e4290e84942f14c847728f7b76c205,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.9363419
+      objectReference: {fileID: 0}
+    - target: {fileID: 5476273683144993231, guid: 87e4290e84942f14c847728f7b76c205,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3657482801166147097, guid: 87e4290e84942f14c847728f7b76c205,
         type: 3}
       propertyPath: m_Mesh
@@ -45581,21 +45706,6 @@ PrefabInstance:
         type: 3}
       propertyPath: ObjectSpeed
       value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5476273683144993224, guid: 87e4290e84942f14c847728f7b76c205,
-        type: 3}
-      propertyPath: Player
-      value: 
-      objectReference: {fileID: 407640237}
-    - target: {fileID: 5476273683144993231, guid: 87e4290e84942f14c847728f7b76c205,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.9363419
-      objectReference: {fileID: 0}
-    - target: {fileID: 5476273683144993231, guid: 87e4290e84942f14c847728f7b76c205,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3657482801763674059, guid: 87e4290e84942f14c847728f7b76c205,
         type: 3}

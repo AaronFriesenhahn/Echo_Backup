@@ -120,7 +120,10 @@ public class ObjectsHitByProjectileBehavior : MonoBehaviour
         Destroy(_frozenEffectParticles);
 
         HitByIce = false;
-        _enemyAi.allowfire = true;
+        if (ObjectTypeEnemy == true)
+        {
+            _enemyAi.allowfire = true;
+        }        
     }
 
     IEnumerator HitByElectricFeedback()

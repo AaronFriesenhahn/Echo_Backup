@@ -947,10 +947,10 @@ MonoBehaviour:
   _impactParticles: {fileID: 873218874750061968, guid: 9fa5a41f8a4c44a45b81ffa8c19bfafe,
     type: 3}
   _impactSound: {fileID: 0}
-  _PlayerTransform: {fileID: 0}
+  _PlayerTransform: {fileID: 389817955668461410, guid: 827df32206327b247a666a69db4a8e4a,
+    type: 3}
   _isFacingLeft: 1
-  _PlayerWithinRangeDetector: {fileID: 0}
-  PlayerWithinRange: 0
+  _enemyRespawner: {fileID: 0}
   _deathSound: {fileID: 8300000, guid: 962306f402129b3479910057d009d619, type: 3}
   PowerupType: {fileID: 5222183206985945317, guid: 125470f81a4fbff47994f57fc2e01396,
     type: 3}

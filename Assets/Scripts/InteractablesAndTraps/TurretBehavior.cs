@@ -11,11 +11,12 @@ public class TurretBehavior : MonoBehaviour
     public bool ObjectPowered = true;
     [SerializeField] GameObject _projectile;
     [SerializeField] Transform EmitLocation;
+    [SerializeField] ObjectsHitByProjectileBehavior _hitByProjectile;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -23,18 +24,40 @@ public class TurretBehavior : MonoBehaviour
     {
         if (_canFire == true && ObjectPowered == true)
         {
-            if (_onCeiling == true)
+            if (_hitByProjectile != null)
             {
-                FireProjectileDown();
-                _canFire = false;
-                StartCoroutine(OnFireCooldown(_fireRate));
+                if (_hitByProjectile.HitByIce == false)
+                {
+                    if (_onCeiling == true)
+                    {
+                        FireProjectileDown();
+                        _canFire = false;
+                        StartCoroutine(OnFireCooldown(_fireRate));
+                    }
+                    else
+                    {
+                        FireProjectileRight();
+                        _canFire = false;
+                        StartCoroutine(OnFireCooldown(_fireRate));
+                    }
+                }
+                //add hitbyElectric condition?
             }
-            else
+            else if (_hitByProjectile == null)
             {
-                FireProjectileRight();
-                _canFire = false;
-                StartCoroutine(OnFireCooldown(_fireRate));
-            }
+                if (_onCeiling == true)
+                {
+                    FireProjectileDown();
+                    _canFire = false;
+                    StartCoroutine(OnFireCooldown(_fireRate));
+                }
+                else
+                {
+                    FireProjectileRight();
+                    _canFire = false;
+                    StartCoroutine(OnFireCooldown(_fireRate));
+                }
+            }  
         }
     }
 
