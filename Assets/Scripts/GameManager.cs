@@ -144,6 +144,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
         Cursor.lockState = CursorLockMode.None;
         Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
     }
 
     public void Resume()
@@ -151,6 +152,7 @@ public class GameManager : MonoBehaviour
         GameIsPaused = false;
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         optionsMenuUI.SetActive(false);
         OptionsMenuBool = false;
     }

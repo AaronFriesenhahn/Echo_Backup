@@ -62,6 +62,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\MayaModels\EchoAnimationsScript.cs" />
+    <Compile Include="Assets\MayaModels\EnemyAnimatorScript.cs" />
     <Compile Include="Assets\Scripts\BulletBehavior.cs" />
     <Compile Include="Assets\Scripts\BulletParticleBehavior.cs" />
     <Compile Include="Assets\Scripts\CameraBehavior.cs" />

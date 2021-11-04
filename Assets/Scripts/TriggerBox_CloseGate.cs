@@ -5,6 +5,7 @@ using UnityEngine;
 public class TriggerBox_CloseGate : MonoBehaviour
 {
     [SerializeField] GameObject[] _ObjectsToPower;
+    [SerializeField] ETypeBoss _boss;
     public bool TogglesPower = true;
     public float TimePowered = 5;
     public bool TriggerOnce = true;
@@ -30,6 +31,9 @@ public class TriggerBox_CloseGate : MonoBehaviour
             if (x == 1)
             {
                 StartCoroutine(HitByElectricFeedback());
+                _boss._PlayerHasEntered = true;
+                _boss.allowfire = true;
+                _boss.GetComponent<Health>().invincible = false;
             }
             if (TriggerOnce == true)
             {

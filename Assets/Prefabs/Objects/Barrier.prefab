@@ -122,8 +122,11 @@ MonoBehaviour:
   _maxHealth: 10
   _currentHealth: 0
   KillObject: 0
-  _impactParticles: {fileID: 0}
-  _hitParticles: {fileID: 0}
+  _impactParticles: {fileID: 873218874750061968, guid: 9fa5a41f8a4c44a45b81ffa8c19bfafe,
+    type: 3}
+  _destroyedObject: {fileID: 8300000, guid: 962306f402129b3479910057d009d619, type: 3}
+  _hitParticles: {fileID: 873218874750061968, guid: 9fa5a41f8a4c44a45b81ffa8c19bfafe,
+    type: 3}
   invincible: 1
 --- !u!1 &4034973443110000443
 GameObject:

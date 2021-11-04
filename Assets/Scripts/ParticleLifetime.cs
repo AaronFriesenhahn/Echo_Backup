@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ParticleLifetime : MonoBehaviour
 {
-    [SerializeField] int _ParticleLifetime;
+    [SerializeField] float _ParticleLifetime;
 
     bool StartCountdown = false;
     
@@ -24,7 +24,7 @@ public class ParticleLifetime : MonoBehaviour
         }
     }
 
-    IEnumerator LifetimeCountdown(int value)
+    IEnumerator LifetimeCountdown(float value)
     {
         yield return new WaitForSeconds(value);
         Destroy(gameObject);

@@ -102,14 +102,14 @@ public class PlayerMotor : MonoBehaviour
         if (Input.GetKey(KeyCode.A) && isFacingRight == true || (Input.GetKey(KeyCode.LeftArrow)) && isFacingRight == true)
         {
             ArtToRotate.transform.Rotate(0, -180, 0);
-            GameObject Head = GameObject.Find("Player/Art/Head");
+            GameObject Head = GameObject.Find("Player/Echo_Model_With_Upgrades/Head");
             Head.transform.Rotate(0, -90, 0);
             isFacingRight = false;
         }
         else if (Input.GetKey(KeyCode.D) && isFacingRight == false && !Input.GetKey(KeyCode.A) || (Input.GetKey(KeyCode.RightArrow)) && isFacingRight == false && !Input.GetKey(KeyCode.RightArrow))
         {
             ArtToRotate.transform.Rotate(0, 180, 0);
-            GameObject Head = GameObject.Find("Player/Art/Head");
+            GameObject Head = GameObject.Find("Player/Echo_Model_With_Upgrades/Head");
             Head.transform.Rotate(0, 90, 0);
             isFacingRight = true;
         }

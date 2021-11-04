@@ -10,6 +10,7 @@ public class ETypeBoss : EnemyAI
     Rigidbody _rigidbody = null;
     [SerializeField] Transform _PlayerPosition;
     public bool _isFacingLeft = true;
+    public bool _PlayerHasEntered  = false;
 
     //for jumping
     int x = 0;
@@ -33,9 +34,13 @@ public class ETypeBoss : EnemyAI
     // Update is called once per frame
     void Update()
     {
+        if (_PlayerHasEntered == false)
+        {
+            allowfire = false;
+        }
 
         //checks to see if player is in range of Boss (TODO needs a better check than number, probably)
-        if (_PlayerPosition.transform.position.x > -18)
+        if (_PlayerHasEntered == true)
         {
             if (_PlayerPosition.transform.position.x < transform.position.x && _isFacingLeft == false)
             {

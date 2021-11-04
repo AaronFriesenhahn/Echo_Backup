@@ -114,6 +114,7 @@ MonoBehaviour:
   _projectile: {fileID: 5436300861065661510, guid: bf2d3939d39e1804eb5619205b2a0ff2,
     type: 3}
   EmitLocation: {fileID: 7806607555656732411}
+  _hitByProjectile: {fileID: 0}
 --- !u!1 &7806607555656732412
 GameObject:
   m_ObjectHideFlags: 0

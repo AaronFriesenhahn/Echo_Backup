@@ -95,7 +95,14 @@ public class EnemyBehavior : MonoBehaviour
 
         //TODO Respawn functionality 
         Debug.Log("Calling Respawn");
-        _enemyRespawner.StartCoroutine(_enemyRespawner.RespawnDelay());
+        if (_enemyRespawner == null)
+        {
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            _enemyRespawner.StartCoroutine(_enemyRespawner.RespawnDelay());
+        }        
     }
 
     //testing extra damage from stronger type. It works!!! Add element type between Projectile and (Clone) Perhaps add to EnemyType Scripts

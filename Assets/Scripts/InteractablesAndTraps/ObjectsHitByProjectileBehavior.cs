@@ -26,6 +26,8 @@ public class ObjectsHitByProjectileBehavior : MonoBehaviour
     bool reachDestination2 = false;
 
     public EnemyAI _enemyAi;
+    [SerializeField] Material _originalMaterial;
+    [SerializeField] Material _frozenMaterial;
     [SerializeField] ParticleSystem _frozenEffect;
     [SerializeField] ParticleSystem _PoweredEffect;
 
@@ -112,18 +114,36 @@ public class ObjectsHitByProjectileBehavior : MonoBehaviour
 
     IEnumerator HitByIceFeedback()
     {
-        //spawn Frozen Feedback Image at objects transform
-        ParticleSystem _frozenEffectParticles = Instantiate(_frozenEffect, gameObject.transform.position, Quaternion.identity);
-        //Have time for object frozen?
-        yield return new WaitForSeconds(3f);
-        //destroy Frozen Feedback Image, indicating object is no longer frozen
-        Destroy(_frozenEffectParticles);
-
-        HitByIce = false;
-        if (ObjectTypeEnemy == true)
+        if (ObjectTypeEnemy == false)
         {
-            _enemyAi.allowfire = true;
-        }        
+            //change material to light blue for ice
+            var FrozenObjectRenderer = gameObject.GetComponent<Renderer>();
+            FrozenObjectRenderer.material = _frozenMaterial;
+            //Have time for object frozen?
+            yield return new WaitForSeconds(3f);
+            FrozenObjectRenderer.material = _originalMaterial;
+
+            HitByIce = false;
+            if (ObjectTypeEnemy == true)
+            {
+                _enemyAi.allowfire = true;
+            }
+        }
+        else
+        {
+            //spawn Frozen Feedback Image at objects transform
+            ParticleSystem _frozenEffectParticles = Instantiate(_frozenEffect, gameObject.transform.position, Quaternion.identity);
+            //Have time for object frozen?
+            yield return new WaitForSeconds(3f);
+            //destroy Frozen Feedback Image, indicating object is no longer frozen
+            Destroy(_frozenEffectParticles);
+
+            HitByIce = false;
+            if (ObjectTypeEnemy == true)
+            {
+                _enemyAi.allowfire = true;
+            }
+        }      
     }
 
     IEnumerator HitByElectricFeedback()

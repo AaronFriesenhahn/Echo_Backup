@@ -11,6 +11,8 @@ public class Health : MonoBehaviour, IDamageable
     string ObjectName;
     [SerializeField]
     ParticleSystem _impactParticles;
+    [SerializeField]
+    AudioClip _destroyedObject;
 
     GameObject _player;
 
@@ -36,15 +38,15 @@ public class Health : MonoBehaviour, IDamageable
 
     public void TakeDamage(int damage)
     {
-        Debug.Log("Damage taken: " + damage);
-        _currentHealth -= damage;
-        Damaged.Invoke(damage);
-        ParticleSystem _particles = Instantiate(_impactParticles, transform.position, Quaternion.identity);
-        if (_currentHealth <= 0)
+        if (invincible == false)
         {
-            _currentHealth = 0;
-            if (invincible == false)
+            Debug.Log("Damage taken: " + damage);
+            _currentHealth -= damage;
+            Damaged.Invoke(damage);
+            ParticleSystem _particles = Instantiate(_impactParticles, transform.position, Quaternion.identity);
+            if (_currentHealth <= 0)
             {
+                _currentHealth = 0;
                 Kill();
             }
         }
@@ -63,6 +65,8 @@ public class Health : MonoBehaviour, IDamageable
         KillObject = true;
         var objectMesh = gameObject.GetComponent<MeshRenderer>();
         var objectCollider = gameObject.GetComponent<Collider>();
+
+        AudioHelper.PlayClip2D(_destroyedObject, 1f);
 
         //objectMesh.enabled = false;
         //objectCollider.enabled = false;

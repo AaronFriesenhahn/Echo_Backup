@@ -33,8 +33,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject GroundProjectile;
     [SerializeField] GameObject ElectricProjectile;
 
-    [Header("Projectile Particles")]
+    [Header("Jump Particles")]
     [SerializeField] GameObject FireParticles;
+    [SerializeField] GameObject IceParticles;
+    [SerializeField] GameObject ElectricParticles;
+    [SerializeField] Transform _JumpParticleEmitLocation;
 
     [Header("Materials")]
     [SerializeField] Material _PlayerAppendageMaterial;
@@ -88,17 +91,14 @@ public class PlayerController : MonoBehaviour
     //for testing projectiles
     bool canFire = true;
 
-    //for animation variables
-    int rightlegrunning = 0;
-    int leftlegrunning = 0;
-
     //for hovering
     float targetTime = 2.75f;
-
+    bool isHovering = false;
 
     bool deathSoundPlayed = false;
 
     public bool _PlayerDied = false;
+    public bool _PlayerGrounded = false;
 
     private void Awake()
     {
@@ -158,7 +158,7 @@ public class PlayerController : MonoBehaviour
     }
     void OnJump()
     {
-        GameObject RightLeg = GameObject.Find("Player/Art/RightLeg");
+        GameObject RightLeg = GameObject.Find("Player/Echo_Model_With_Upgrades/RightLeg");
         if (RightLeg.activeSelf == true)
         {
             Debug.Log("Jumping." + _motor._isGrounded);
@@ -191,7 +191,9 @@ public class PlayerController : MonoBehaviour
             _isSprinting = true;
             //notify others that we are sprinting (animations, etc.)
             Sprint?.Invoke();
+            
         }
+        GameObject IceParticlesClone = Instantiate(IceParticles, _JumpParticleEmitLocation.position, _JumpParticleEmitLocation.rotation);
     }
 
     void OnSprintReleased()
@@ -202,7 +204,7 @@ public class PlayerController : MonoBehaviour
 
     void OnFire()
     {
-        GameObject RightArm = GameObject.Find("Player/Art/RightArm");
+        GameObject RightArm = GameObject.Find("Player/Echo_Model_With_Upgrades/RightArm");
         if (RightArm.activeSelf == true)
         {
             //apply effects to simulate firing of weapon
@@ -221,8 +223,6 @@ public class PlayerController : MonoBehaviour
                         //set weaponDamage?
                         Debug.Log("Fire attack.");
                         weaponDamage = 5;
-                        //fire particles
-                        GameObject particles = Instantiate(FireParticles, EmitLocation.position, EmitLocation.rotation);
 
                         StartCoroutine(FireProjectileDelay());
                         StartCoroutine(OnFireCooldown(1f));
@@ -324,9 +324,9 @@ public class PlayerController : MonoBehaviour
     {
         if (GameManager.GameIsPaused == false)
         {
-            PlayAnimation();
             DetectHealth();
             DetectGround();
+            PlayerAwake();
         }
         targetTime -= Time.deltaTime;
         if (targetTime <= 0.0f)
@@ -337,63 +337,17 @@ public class PlayerController : MonoBehaviour
         {
             _rigidbody.drag = 0;
         }
-    }
-
-    void PlayAnimation()
-    {
-        //makes sure Player is healthy so animations don't play on death
-        if (_healthsystem._currentHealth > 0)
+        //testing hover particles
+        if (isHovering == true)
         {
-            //detect if firing weapon
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                //play shooting animation? (only affects arms)
-                //Debug.Log("Shooting Animation Played.");
-            }
-            //detect if moving
-            else if (Input.GetKey(KeyCode.A) || (Input.GetKey(KeyCode.LeftArrow))
-                || (Input.GetKey(KeyCode.D) || (Input.GetKey(KeyCode.RightArrow))))
-            {
-                if (_motor._isGrounded == true)
-                {
-                    if (rightlegrunning == 0)
-                    {
-                        rightlegrunning = 1;
-                        //play running animation
-                        //import from Maya?
-                    }
-                    
-                    //Debug.Log("Running Animation Played.");
-                    if (!Input.GetKeyDown(KeyCode.Mouse0))
-                    {
-                        //play arm animation
-                        //Debug.Log("Moving Arms Animation Played.");
-                    }
-                }
-            }
-            //detect if jumping
-            else if (_motor._isGrounded == false)
-            {
-                //play jump animation
-                //Debug.Log("Jump/Fall Animation Played.");
-                if (SecondJumpAbility == true && Input.GetKeyDown(KeyCode.Space))
-                {
-                    //Play Second Jump Animation
-                    //Debug.Log("Second Jump Animation Played.");
-                }
-            }
-            else
-            {
-                //play idle animation
-                //Debug.Log("Idle Animation Played.");
-            }
+            GameObject ElectricParticlesClone = Instantiate(ElectricParticles, _JumpParticleEmitLocation.position, _JumpParticleEmitLocation.rotation);
         }
     }
 
     public void PlayerAwake()
     {
-        GameObject LeftEye = GameObject.Find("Player/Art/Head/LeftEye");
-        GameObject RightEye = GameObject.Find("Player/Art/Head/RightEye");
+        GameObject LeftEye = GameObject.Find("Player/Echo_Model_With_Upgrades/Head/LeftEye");
+        GameObject RightEye = GameObject.Find("Player/Echo_Model_With_Upgrades/Head/RightEye");
         LeftEye.SetActive(true);
         RightEye.SetActive(true);
     }
@@ -448,6 +402,7 @@ public class PlayerController : MonoBehaviour
                     _rigidbody.angularVelocity = Vector3.zero;
                     //add jump force
                     _rigidbody.AddForce(Vector3.up * (_jumpStrength * 1.25f));
+                    GameObject FireParticlesClone = Instantiate(FireParticles, _JumpParticleEmitLocation.position, _JumpParticleEmitLocation.rotation);
                     x = 1;
                 }
             }
@@ -478,34 +433,46 @@ public class PlayerController : MonoBehaviour
                 if (x == 0)
                 {
                     Debug.Log("Hover, please!");
+                    isHovering = true;
                     AudioHelper.PlayClip2D(_electricHoverSound, 1f);
                     _rigidbody.drag = 20;
                     x = 1;
                     targetTime = 2.75f;
-                    //StartCoroutine(HoverJumpDelay());                    
+                    
+                    StartCoroutine(HoverJumpDelay());                    
                 }
             }
             else if (_motor._isGrounded == true)
             {
                 _rigidbody.drag = 0;
+                isHovering = false;
             }
         }
     }
 
     public void DetectArmUpgrade(int Upgrade)
     {
-        GameObject RightArm = GameObject.Find("Player/Art/RightArm");
-        var RightArmRenderer = RightArm.GetComponent<Renderer>();
-        if (RightArm.activeSelf == false)
-        {
-            RightArm.SetActive(true);
-        }
+        //set different arm upgrade models
+        GameObject RightArmModelNormal = GameObject.Find("Player/Echo_Model_With_Upgrades/RightArm/WeaponArm");
+        GameObject RightArmModelFire = GameObject.Find("Player/Echo_Model_With_Upgrades/RightArm/WeaponArmFire");
+        GameObject RightArmModelIce = GameObject.Find("Player/Echo_Model_With_Upgrades/RightArm/WeaponArmIce");
+        GameObject RightArmModelElectric = GameObject.Find("Player/Echo_Model_With_Upgrades/RightArm/WeaponArmElectric");
+        GameObject RightArmModelGround = GameObject.Find("Player/Echo_Model_With_Upgrades/RightArm/WeaponArmGround");
+
+        GameObject RightArm = GameObject.Find("Player/Echo_Model_With_Upgrades/RightArm");
+        //var RightArmRenderer = RightArm.GetComponent<Renderer>();
+
 
         //change right arm to fire
         if (Upgrade == 1)
         {
+            RightArmModelNormal.SetActive(false);
+            RightArmModelIce.SetActive(false);
+            RightArmModelElectric.SetActive(false);
+            RightArmModelGround.SetActive(false);
+            RightArmModelFire.SetActive(true);
 
-            RightArmRenderer.material = _FireMaterial;
+            //RightArmRenderer.material = _FireMaterial;
             FireUpgradeOn = true;
             IceUpgradeOn = false;
             GroundUpgradeOn = false;
@@ -514,7 +481,13 @@ public class PlayerController : MonoBehaviour
         //change right arm to ice
         else if (Upgrade == 2)
         {
-            RightArmRenderer.material = _IceMaterial;
+            RightArmModelNormal.SetActive(false);
+            RightArmModelIce.SetActive(true);
+            RightArmModelElectric.SetActive(false);
+            RightArmModelGround.SetActive(false);
+            RightArmModelFire.SetActive(false);
+
+            //RightArmRenderer.material = _IceMaterial;
             IceUpgradeOn = true;
             FireUpgradeOn = false;
             GroundUpgradeOn = false;
@@ -523,11 +496,13 @@ public class PlayerController : MonoBehaviour
         //charge right arm to ground
         else if (Upgrade == 3)
         {
-            RightArmRenderer.material = _GroundMaterial;
-            FireUpgradeOn = false;
-            IceUpgradeOn = false;
-            GroundUpgradeOn = false;
-            ElectricUpgradeOn = false;
+            RightArmModelNormal.SetActive(false);
+            RightArmModelIce.SetActive(false);
+            RightArmModelElectric.SetActive(false);
+            RightArmModelGround.SetActive(true);
+            RightArmModelFire.SetActive(false);
+
+            //RightArmRenderer.material = _GroundMaterial;
             GroundUpgradeOn = true;
             FireUpgradeOn = false;
             IceUpgradeOn = false;
@@ -536,7 +511,13 @@ public class PlayerController : MonoBehaviour
         //change right arm to electric
         else if (Upgrade == 4)
         {
-            RightArmRenderer.material = _ElectricMaterial;
+            RightArmModelNormal.SetActive(false);
+            RightArmModelIce.SetActive(false);
+            RightArmModelElectric.SetActive(true);
+            RightArmModelGround.SetActive(false);
+            RightArmModelFire.SetActive(false);
+
+            //RightArmRenderer.material = _ElectricMaterial;
             ElectricUpgradeOn = true;
             FireUpgradeOn = false;
             IceUpgradeOn = false;
@@ -545,7 +526,15 @@ public class PlayerController : MonoBehaviour
         //return to normal
         else if (Upgrade == 0)
         {
-            RightArmRenderer.material = _PlayerAppendageMaterial;
+            RightArm.SetActive(true);
+
+            RightArmModelNormal.SetActive(true);
+            RightArmModelIce.SetActive(false);
+            RightArmModelElectric.SetActive(false);
+            RightArmModelGround.SetActive(false);
+            RightArmModelFire.SetActive(false);
+
+            //RightArmRenderer.material = _PlayerAppendageMaterial;
             FireUpgradeOn = false;
             IceUpgradeOn = false;
             GroundUpgradeOn = false;
@@ -554,19 +543,36 @@ public class PlayerController : MonoBehaviour
     }
     public void DetectLegUpgrade(int Upgrade)
     {
-        GameObject RightLeg = GameObject.Find("Player/Art/RightLeg");
-        GameObject LeftLeg = GameObject.Find("Player/Art/LeftLeg");
+        GameObject RightLegNormal = GameObject.Find("Player/Echo_Model_With_Upgrades/RightLeg/RightLeg/NormalBoot");
+        //GameObject RightLeg2 = GameObject.Find("Player/Echo_Model_With_Upgrades/RightLeg/UpperLegR");
+        GameObject LeftLegNormal = GameObject.Find("Player/Echo_Model_With_Upgrades/LeftLeg/LeftLeg/NormalBoot");
+        //GameObject LeftLeg2 = GameObject.Find("Player/Echo_Model_With_Upgrades/LeftLeg/UpperLegL");
+        GameObject RightLegFire = GameObject.Find("Player/Echo_Model_With_Upgrades/RightLeg/RightLeg/FireBoot");
+        GameObject RightLegIce = GameObject.Find("Player/Echo_Model_With_Upgrades/RightLeg/RightLeg/IceBoot");
+        GameObject RightLegElectric = GameObject.Find("Player/Echo_Model_With_Upgrades/RightLeg/RightLeg/ElectricBoot");
+        GameObject LeftLegFire = GameObject.Find("Player/Echo_Model_With_Upgrades/LeftLeg/LeftLeg/FireBoot");
+        GameObject LeftLegIce = GameObject.Find("Player/Echo_Model_With_Upgrades/LeftLeg/LeftLeg/IceBoot");
+        GameObject LeftLegElectric = GameObject.Find("Player/Echo_Model_With_Upgrades/LeftLeg/LeftLeg/ElectricBoot");
+
+        GameObject RightLeg = GameObject.Find("Player/Echo_Model_With_Upgrades/RightLeg/RightLeg");
+        GameObject LeftLeg = GameObject.Find("Player/Echo_Model_With_Upgrades/LeftLeg/LeftLeg");
         var RightLegRenderer = RightLeg.GetComponent<Renderer>();
         var LeftLegRenderer = LeftLeg.GetComponent<Renderer>();
 
-        if (RightLeg.activeSelf == false)
-        {
-            RightLeg.SetActive(true);
-        }
+        GameObject RightLegTutorial = GameObject.Find("Player/Echo_Model_With_Upgrades/RightLeg");
 
         //change legs to fire
         if (Upgrade == 1)
         {
+            RightLegNormal.SetActive(false);
+            RightLegFire.SetActive(true);
+            RightLegIce.SetActive(false);
+            RightLegElectric.SetActive(false);
+            LeftLegNormal.SetActive(false);
+            LeftLegFire.SetActive(true);
+            LeftLegIce.SetActive(false);
+            LeftLegElectric.SetActive(false);
+
             RightLegRenderer.material = _FireMaterial;
             LeftLegRenderer.material = _FireMaterial;
             LegFireUpgradeOn = true;
@@ -578,6 +584,15 @@ public class PlayerController : MonoBehaviour
         //change legs to ice
         else if (Upgrade == 2)
         {
+            RightLegNormal.SetActive(false);
+            RightLegFire.SetActive(false);
+            RightLegIce.SetActive(true);
+            RightLegElectric.SetActive(false);
+            LeftLegNormal.SetActive(false);
+            LeftLegFire.SetActive(false);
+            LeftLegIce.SetActive(true);
+            LeftLegElectric.SetActive(false);
+
             RightLegRenderer.material = _IceMaterial;
             LeftLegRenderer.material = _IceMaterial;
             LegFireUpgradeOn = false;
@@ -588,6 +603,16 @@ public class PlayerController : MonoBehaviour
         //change legs to ground
         else if (Upgrade == 3)
         {
+            //didn't model a ground boot so Normal is set to active
+            RightLegNormal.SetActive(true);
+            RightLegFire.SetActive(false);
+            RightLegIce.SetActive(false);
+            RightLegElectric.SetActive(false);
+            LeftLegNormal.SetActive(true);
+            LeftLegFire.SetActive(false);
+            LeftLegIce.SetActive(false);
+            LeftLegElectric.SetActive(false);
+
             RightLegRenderer.material = _GroundMaterial;
             LeftLegRenderer.material = _GroundMaterial;
             LegFireUpgradeOn = false;
@@ -598,6 +623,15 @@ public class PlayerController : MonoBehaviour
         //change legs to electric
         else if (Upgrade == 4)
         {
+            RightLegNormal.SetActive(false);
+            RightLegFire.SetActive(false);
+            RightLegIce.SetActive(false);
+            RightLegElectric.SetActive(true);
+            LeftLegNormal.SetActive(false);
+            LeftLegFire.SetActive(false);
+            LeftLegIce.SetActive(false);
+            LeftLegElectric.SetActive(true);
+
             RightLegRenderer.material = _ElectricMaterial;
             LeftLegRenderer.material = _ElectricMaterial;
             LegFireUpgradeOn = false;
@@ -608,6 +642,17 @@ public class PlayerController : MonoBehaviour
         //return to normal
         else if (Upgrade == 0)
         {
+            RightLegTutorial.SetActive(true);
+
+            RightLegNormal.SetActive(true);
+            RightLegFire.SetActive(false);
+            RightLegIce.SetActive(false);
+            RightLegElectric.SetActive(false);
+            LeftLegNormal.SetActive(true);
+            LeftLegFire.SetActive(false);
+            LeftLegIce.SetActive(false);
+            LeftLegElectric.SetActive(false);
+
             RightLegRenderer.material = _PlayerAppendageMaterial;
             LeftLegRenderer.material = _PlayerAppendageMaterial;
             LegFireUpgradeOn = false;
@@ -622,7 +667,8 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(2.5f);
         Debug.Log("Delay! HoverJump activated.");
         //return drag to normal
-        _rigidbody.drag = 0;
+        isHovering = false;
+        //_rigidbody.drag = 0;
     }
 
     void DetectGround()
@@ -630,6 +676,11 @@ public class PlayerController : MonoBehaviour
         if (_motor._isGrounded == true)
         {
             x = 0;
+            _PlayerGrounded = true;
+        }
+        else
+        {
+            _PlayerGrounded = false;
         }
     }
 

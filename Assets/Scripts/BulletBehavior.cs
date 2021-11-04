@@ -62,7 +62,25 @@ public class BulletBehavior : MonoBehaviour
             }
             //AudioHelper.PlayClip2D(impactSound, 1f);
         }
-        Debug.Log("Hit object.");
+        else if (collision.collider.tag == "Player")
+        {
+            Debug.Log("Hit Player.");
+            //does damage to hit object
+            IDamageable hit = (IDamageable)collision.gameObject.GetComponent(typeof(IDamageable));
+            if (hit != null)
+            {
+                hit.TakeDamage(weaponDamage);
+                gameObject.SetActive(false);
+                Destroy(gameObject);
+            }
+            if (impactParticles != null)
+            {
+                impactParticles = Instantiate(impactParticles,
+                    transform.position, Quaternion.identity);
+            }
+            //AudioHelper.PlayClip2D(impactSound, 1f);
+        }
+        Debug.Log("Hit an object.");
         gameObject.SetActive(false);
         Destroy(gameObject);
     }
