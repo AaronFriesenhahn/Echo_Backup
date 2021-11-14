@@ -191,9 +191,10 @@ public class PlayerController : MonoBehaviour
             _isSprinting = true;
             //notify others that we are sprinting (animations, etc.)
             Sprint?.Invoke();
-            
+            GameObject IceParticlesClone = Instantiate(IceParticles, _JumpParticleEmitLocation.position, _JumpParticleEmitLocation.rotation);
+
         }
-        GameObject IceParticlesClone = Instantiate(IceParticles, _JumpParticleEmitLocation.position, _JumpParticleEmitLocation.rotation);
+        
     }
 
     void OnSprintReleased()
@@ -236,7 +237,7 @@ public class PlayerController : MonoBehaviour
                         canFire = false;
                         GameObject projectile = Instantiate(IceProjectile, EmitLocation.position, EmitLocation.rotation);
                         FireProjectileInDirection(projectile);
-                        AudioHelper.PlayClip2D(_WeaponSound, 1f);
+                        AudioHelper.PlayClip2D(_iceWeaponSound, 1f);
                         //set weaponDamage?
                         weaponDamage = 20;
                         //ice particles
@@ -269,7 +270,7 @@ public class PlayerController : MonoBehaviour
                         canFire = false;
                         GameObject projectile = Instantiate(ElectricProjectile, EmitLocation.position, EmitLocation.rotation);
                         FireProjectileInDirection(projectile);
-                        AudioHelper.PlayClip2D(_WeaponSound, 1f);
+                        AudioHelper.PlayClip2D(_electricWeaponSound, 1f);
                         //is a laser beam, so increase bullet speed
                         if (_motor.isFacingRight)
                         {

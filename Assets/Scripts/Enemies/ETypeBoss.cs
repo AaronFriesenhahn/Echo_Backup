@@ -23,6 +23,8 @@ public class ETypeBoss : EnemyAI
 
     [SerializeField] GameObject _ObjectToPowerUponDeath;
 
+    [SerializeField] Animator _enemyAnimator;
+
 
     // Start is called before the first frame update
     void Start()
@@ -117,10 +119,12 @@ public class ETypeBoss : EnemyAI
         {
             //jump
             _rigidbody.AddForce(Vector3.up * (400));
+            _enemyAnimator.SetBool("Jumping", true);
             yield return new WaitForSeconds(1f);
             //jump again
             _rigidbody.AddForce(Vector3.up * (350));
             Debug.Log("Boss Jumping!");
+            _enemyAnimator.SetBool("Jumping", false);
         }
         yield return new WaitForSeconds(5f);
         x = 0;
